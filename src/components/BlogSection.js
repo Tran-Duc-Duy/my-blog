@@ -2,6 +2,8 @@ import React from "react";
 import FontAwesome from "react-fontawesome";
 import { Link } from "react-router-dom";
 import { excerpt } from "../utility";
+import DOMPurify from "dompurify";
+
 
 const BlogSection = ({ blogs, user, handleDelete }) => {
   const userId = user?.uid;
@@ -27,8 +29,11 @@ const BlogSection = ({ blogs, user, handleDelete }) => {
                 {item.timestamp.toDate().toDateString()}
               </span>
             </div>
-            <div className="short-description text-start">
-              {excerpt(item.description, 120)}
+            <div className="short-description text-start need-reset">
+              <p className="need-reset" dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(excerpt(item.description, 120)),
+              }}
+              ></p>
             </div>
             <Link to={`/detail/${item.id}`}>
               <button className="btn btn-read">Read More</button>

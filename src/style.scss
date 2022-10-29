@@ -97,7 +97,7 @@ $blue:#0a5f9c;
 
 // form
 .heading {
-    font-size: 20px;
+    font-size: 80px;
 	color: #424040;
     font-weight: 600;
 }
@@ -196,8 +196,9 @@ $blue:#0a5f9c;
 }
 
 .blogs-img > img {
-    height: 260px;
+    max-height: 300px;
 	min-width: 100%;
+	object-fit: cover;
 }
 
 .hover-blogs-img:hover > .blogs-img {
@@ -368,8 +369,9 @@ $blue:#0a5f9c;
 // Most popular
 
 .most-popular-img {
-    height: 80px;
+    height: auto;
 	width: 100%;
+	object-fit: cover;
 }
 
 .most-popular-font {
@@ -485,4 +487,15 @@ $blue:#0a5f9c;
  -webkit-transform: translateX(0);
  transform: translateX(0);
 }
+}
+
+
+.need-reset h1, .need-reset h2, .need-reset h3, .need-reset h4, .need-reset h5, .need-reset h6 {
+
+	font-size: 14px !important;
+}
+
+.editor{
+	height: 300px;
+	margin-bottom: 100px;
 }

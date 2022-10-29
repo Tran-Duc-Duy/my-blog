@@ -13,7 +13,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 const initialState = {
   title: "",
   tags: [],
@@ -32,6 +33,7 @@ const categoryOption = [
 ];
 
 const AddEditBlog = ({ user, setActive }) => {
+  const [value, setValue] = useState("");
   const [form, setForm] = useState(initialState);
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(null);
@@ -96,7 +98,6 @@ const AddEditBlog = ({ user, setActive }) => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
   const handleTags = (tags) => {
     setForm({ ...form, tags });
   };
@@ -107,6 +108,11 @@ const AddEditBlog = ({ user, setActive }) => {
 
   const onCategoryChange = (e) => {
     setForm({ ...form, category: e.target.value });
+  };
+
+  const handleEditorChange = (value) => {
+    setValue(value);
+    setForm({ ...form, description: value });
   };
 
   const handleSubmit = async (e) => {
@@ -153,7 +159,7 @@ const AddEditBlog = ({ user, setActive }) => {
           </div>
         </div>
         <div className="row h-100 justify-content-center align-items-center">
-          <div className="col-10 col-md-8 col-lg-6">
+          <div className="col-10 col-md-10 col-lg-8">
             <form className="row blog-form" onSubmit={handleSubmit}>
               <div className="col-12 py-3">
                 <input
@@ -214,12 +220,19 @@ const AddEditBlog = ({ user, setActive }) => {
                 </select>
               </div>
               <div className="col-12 py-3">
-                <textarea
+                {/* <textarea
                   className="form-control description-box"
                   placeholder="Description"
                   value={description}
                   name="description"
                   onChange={handleChange}
+                /> */}
+                <ReactQuill
+                  className="editor"
+                  theme="snow"
+                  value={description ? description : value}
+                  name="description"
+                  onChange={handleEditorChange}
                 />
               </div>
               <div className="mb-3">

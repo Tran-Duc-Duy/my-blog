@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import MostPopular from "../components/MostPopular";
 import Tags from "../components/Tags";
 import { db } from "../firebase";
+import DOMPurify from "dompurify";
 
 const Detail = ({ setActive }) => {
   const { id } = useParams();
@@ -56,7 +57,11 @@ const Detail = ({ setActive }) => {
                 By <p className="author">{blog?.author}</p> -&nbsp;
                 {blog?.timestamp.toDate().toDateString()}
               </span>
-              <p className="text-start">{blog?.description}</p>
+              <p className="text-start"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(blog?.description),
+                }}
+              ></p>
             </div>
             <div className="col-md-3">
               <Tags tags={tags} />
